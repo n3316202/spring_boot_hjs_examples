@@ -11,4 +11,15 @@ public class HelloJspController {
 	public String hello() {
 		return "hello";
 	}
+	
+	@GetMapping("/bye")
+	public String bye() {
+		return "bye";
+	}
+	
+	@GetMapping("/index")
+	public String index() {
+		return "index.html";
+	}
+
 }
