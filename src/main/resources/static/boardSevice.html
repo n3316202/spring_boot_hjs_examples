@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/board.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+	
+	console.log(boardService.list());
+	console.log(boardService.get(380));
+	let board = {
+		     	bname: "아행행",
+		     	bcontent: "아행행.",
+		        btitle: "음매에 ~~"
+		     };
+	console.log(boardService.add(board));
+	console.log(boardService.list());
+	
+	console.log(boardService.del(380));
+	console.log(boardService.list());
+	
+	
+});
+</script>	
+</head>
+<body>
+
+</body>
+</html>
