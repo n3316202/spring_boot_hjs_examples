@@ -12,12 +12,6 @@ public class HelloController {
 		return "Hello World";
 	}
 	
-	@GetMapping("/board")
-	public ModelAndView board() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/board/restful");
-		
-		return mv;
-	}
+
 
 }
