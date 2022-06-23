@@ -20,16 +20,45 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @Configuration
-@EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인에 등록됨
+@EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록됨
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
-    public void configure(WebSecurity web) throws Exception {		
-		web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
+	public void configure(WebSecurity web) throws Exception {
+		// web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
+	}
 
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+				.antMatchers("/member/**").authenticated()
+				.antMatchers("/admin/**").authenticated()
+				.antMatchers("/**")
+				.permitAll();
+
+		http.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/")
+				.permitAll();
+
+		http.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login")
+				.invalidateHttpSession(true);
+
+		http.exceptionHandling()
+				.accessDeniedPage("/denied");
+		}
+		
+		@Override
+	    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+	        //auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+	    }
+	
 }
