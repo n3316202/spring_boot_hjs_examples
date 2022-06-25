@@ -32,33 +32,60 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		http.authorizeRequests()
-				.antMatchers("/member/**").authenticated()
-				.antMatchers("/admin/**").authenticated()
-				.antMatchers("/**")
-				.permitAll();
-
-		http.formLogin()
-				.loginPage("/login")
-				.defaultSuccessUrl("/")
-				.permitAll();
-
-		http.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login")
-				.invalidateHttpSession(true);
-
-		http.exceptionHandling()
-				.accessDeniedPage("/denied");
-		}
+		//우선 CSRF설정을 해제한다.
+		//초기 개발시만 해주는게 좋다.
+		http.csrf().disable();
 		
-		@Override
-	    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-	        //auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-	    }
+		http.authorizeRequests()
+		.antMatchers("/user/**").hasAnyRole("ROLE_USER") 
+		.antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
+		.antMatchers("/**").permitAll();
+		
+		http.formLogin(); //스프링 시큐리티에 있는 기본 로그인 폼을 사용하겠다.
+		
+	}
+	
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	    
+		auth.inMemoryAuthentication()
+	        .withUser("user").password("{noop}user").roles("USER").and()
+	        .withUser("admin").password("{noop}admin").roles("ADMIN");
+	
+	}
+		
+	
+
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//
+//		http.authorizeRequests()
+//				.antMatchers("/member/**").authenticated()
+//				.antMatchers("/admin/**").authenticated()
+//				.antMatchers("/**")
+//				.permitAll();
+//
+//		http.formLogin()
+//				.loginPage("/login")
+//				.defaultSuccessUrl("/")
+//				.permitAll();
+//
+//		http.logout()
+//				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//				.logoutSuccessUrl("/login")
+//				.invalidateHttpSession(true);
+//
+//		http.exceptionHandling()
+//				.accessDeniedPage("/denied");
+//		}
+//		
+//		@Override
+//	    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//	        //auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+//	    }
 	
 }
