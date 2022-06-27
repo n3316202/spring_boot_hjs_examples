@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.BootstrapWith;
 
 import edu.hi.ex.vo.DeptVO;
+import edu.hi.ex.vo.EmpVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,16 +16,41 @@ class DeptMapperTest {
 	@Autowired
 	private DeptMapper deptMapper;
 	
-	@Test
-	public void testGetList() {
+//	@Test
+//	public void testGetList() {
+//
+//		System.out.println(deptMapper);
+//		System.out.println(deptMapper.getList().size());
+//		
+//		for (DeptVO vo : deptMapper.getList()) {
+//			log.info(vo.getLoc());
+//			System.out.println(vo.getDeptno());
+//		}	
+//
+//	}
+//
+//	@Test
+//	public void testGetEmpDeptList() {
+//
+//		System.out.println(deptMapper);
+//		System.out.println(deptMapper.getList().size());
+//		
+//		for (DeptVO vo : deptMapper.getEmpDeptList()) {
+//			System.out.println(vo);
+//			for (EmpVO emp : vo.getEmpList()) {
+//				System.out.println(emp);
+//			}
+//		}
+//	}
+	
 
-		System.out.println(deptMapper);
-		System.out.println(deptMapper.getList().size());
+	@Test
+	public void testGetEmpDeptOneVOList() {
+
 		
-		for (DeptVO vo : deptMapper.getList()) {
-			log.info(vo.getLoc());
-			System.out.println(vo.getDeptno());
-		}	
+		System.out.println(deptMapper.getEmpDeptOneVOList());
+			
 
 	}
+
 }
