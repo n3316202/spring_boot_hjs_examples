@@ -73,9 +73,7 @@
 	
 	<script>
 		
-		$(document).ready(function(){
-			
-			
+		$(document).ready(function(){			
 			
 			$(document).on("click","#list-table .btn_delete",function(){
 				console.log($(this).attr("id"));
