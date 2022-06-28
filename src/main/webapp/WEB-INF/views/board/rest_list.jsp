@@ -75,7 +75,7 @@
 		
 		$(document).ready(function(){
 			
-			let 
+			
 			
 			$(document).on("click","#list-table .btn_delete",function(){
 				console.log($(this).attr("id"));
@@ -86,7 +86,8 @@
 				
 				//위의 코드든 아래 코드든 상관이 없음
 				boardService.del($(this).attr("id"),function(){
-					$(this).parent().parent().remove();	
+					$(this).parent().parent().remove();
+					console.log("디버깅")
 				});		
 				
 				
