@@ -67,13 +67,16 @@ let boardService = (function() {
 			}); //	   $.ajax({
 	 }
  	
- 	function del(id){
+ 	function del(id, callback){
 		
 		$.ajax({
 		    type : "DELETE",
 		    url : "/boards/" + id,
 		    success: function (result) {       
-			    console.log(result);			
+			    console.log(result);
+			    if(callback){
+			    	callback();
+			    }			
 	
 		    },
 		    error: function (e) {
