@@ -26,4 +26,15 @@ public class EmpController {
 		
 		return "empDept";
 	}
+	
+	@GetMapping("/index")
+	public String index(Model model) {
+		log.info("index () ..");
+		
+		model.addAttribute("empDeptList", service.getEmpDeptList());		
+		
+		System.out.println(service.getEmpDeptList());
+		
+		return "index";
+	}
 }

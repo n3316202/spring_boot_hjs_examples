@@ -21,4 +21,8 @@ public class DeptVO {
 	private String loc; // 지역
 	
 	List<EmpVO> empList;
+	
+	public int getRandomImgNum() {
+		return (int)(Math.random()*6) + 1;
+	}
 }
