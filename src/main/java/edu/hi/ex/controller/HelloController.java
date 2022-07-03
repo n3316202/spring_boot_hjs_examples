@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HelloController {
 
 	@GetMapping("/")
-	public String helo() {
+	public String hello() {
 		return "Hello World";
 	}
 	
